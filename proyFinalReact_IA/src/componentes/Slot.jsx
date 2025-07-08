@@ -1,6 +1,8 @@
 import React from 'react';
-
+import imagenes from '../utils/imagenes';
 const Slot = ({ imagen, girando, onAvanzar, index, premio }) => {
+  const figura = imagenes.find(f => f.nombre === imagen);
+  const emoji = figura ? figura.emoji : imagen;
   return (
     <div style={{ textAlign: 'center' }}>
       <div
@@ -19,7 +21,7 @@ const Slot = ({ imagen, girando, onAvanzar, index, premio }) => {
           transition: 'all 0.4s ease',
         }}
       >
-        {imagen}
+        {emoji}
       </div>
       <button onClick={onAvanzar} disabled={girando} style={{ marginTop: '0.5rem' }}>
         Avanzar Slot {index + 1}

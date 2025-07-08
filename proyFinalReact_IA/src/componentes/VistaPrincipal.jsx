@@ -5,6 +5,7 @@ import Tragaperras from './Tragaperras'; // Este lo veremos luego
 const VistaPrincipal = ({ volverAlMenu }) => {
   return (
     <div>
+      <p>Hola</p>
       <h2>Vista Principal</h2>
       <Tragaperras />
       <button onClick={volverAlMenu}>Volver al Menú</button>
