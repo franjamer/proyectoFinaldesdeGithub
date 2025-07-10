@@ -13,4 +13,4 @@ const VistaPrincipal = ({ volverAlMenu }) => {
   );
 };
 
-export default VistaPrincipal;
+export { VistaPrincipal };

@@ -12,9 +12,9 @@ const imagenes = [
   { nombre: "bar", emoji: "🍫", valor: 4 },
   { nombre: "moneda", emoji: "🪙", valor: 3 },
   { nombre: "cofre", emoji: "🎁", valor: 25 },
-  { nombre: "trofeo", emoji: "🏆", valor: 30 },
+  { nombre: "trofeo", emoji: "🏆", valor: 30 }
 ];
-module.exports = imagenes;
+export default imagenes;
 
 // Este archivo exporta un arreglo de objetos que representan imágenes con sus respectivos símbolos y valores.
 

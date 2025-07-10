@@ -1,6 +1,6 @@
 // src/componentes/TablaHistorial.jsx
 import React from 'react';
-import imagenes from '../utils/imagenes';
+import imagenes from '../utils/imagenes.mjs';
 
 const mapaEmojis = Object.fromEntries(imagenes.map(img => [img.nombre, img.emoji]));
 export default function TablaHistorial({ historial }) {

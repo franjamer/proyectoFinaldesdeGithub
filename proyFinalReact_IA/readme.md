@@ -1,4 +1,4 @@
-# 🎰 Tragaperras React
+# 🎰 Tragaperras Virtual
 
 Este es un proyecto de una **Tragaperras** implementada en React. La aplicación simula un juego de slots donde el usuario puede apostar, girar los rodillos, y ganar premios según las combinaciones obtenidas.
 
@@ -35,6 +35,7 @@ La interfaz muestra:
 - Puede apostar una cantidad que no supere el saldo disponible.
 - Al pulsar "Jugar", los 4 slots giran de forma aleatoria durante tiempos ligeramente diferentes.
 - Cuando los slots se detienen, se evalúa la combinación de figuras obtenidas.
+- Despues de pulsar Jugar si no sale combinación premiada, puedes avanzar los slots individualmente con su botón correspondiente.- Este avance individual, cuesta lo mismo que para mover los cuatro slots a la vez, cuando le das al botón Jugar.
 - Según la combinación, se calcula un multiplicador y se obtiene una ganancia:
   - 4 figuras iguales: multiplicador = valor figura * 4
   - 3 figuras iguales: multiplicador = valor figura * 3
@@ -51,5 +52,12 @@ La interfaz muestra:
 1. Clona el repositorio:
    ```bash
    git clone https://github.com/tu-usuario/nombre-del-repositorio.git
-
-
+   cd nombre-del-repositorio
+2. Instala las dependencias del proyecto:   
+  npm install
+3. Ejecuta la aplicación en modo desarrollo:
+  npm run dev
+4. Para generar una versión optimizada lista para producción:
+  npm run build
+5. Para servir la aplicación ya compilada (modo producción):
+  npx serve -s dist

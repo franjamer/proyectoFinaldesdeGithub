@@ -1,7 +1,7 @@
 // App.jsx
 import React, { useState } from 'react';
-import MenuPrincipal from './componentes/MenuPrincipal';
-import VistaPrincipal from './componentes/VistaPrincipal';
+import MenuPrincipal from './componentes/MenuPrincipal.jsx';
+import {VistaPrincipal} from './componentes/VistaPrincipal.jsx';
 
 function App() {
   const [vista, setVista] = useState('menu'); // 'menu' | 'principal' | 'config'

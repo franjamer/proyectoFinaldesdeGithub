@@ -1,5 +1,5 @@
 import React from 'react';
-import imagenes from '../utils/imagenes';
+import imagenes from '../utils/imagenes.mjs';
 const Slot = ({ imagen, girando, onAvanzar, index, premio }) => {
   const figura = imagenes.find(f => f.nombre === imagen);
   const emoji = figura ? figura.emoji : imagen;

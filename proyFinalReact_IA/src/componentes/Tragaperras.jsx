@@ -1,11 +1,11 @@
 // src/componentes/Tragaperras.jsx
 import React, { useState, useRef, useEffect } from 'react';
-import Slot from './Slot';
-import Apuesta from './Apuesta';
-import TablaHistorial from './TablaHistorial';
-import TablaPremios from './TablaPremios';
-import imagenes from '../utils/imagenes';
-import { calcularMultiplicador,obtenerValor } from '../utils/combinaciones';
+import Slot from './Slot.jsx';
+import Apuesta from './Apuesta.jsx';
+import TablaHistorial from './TablaHistorial.jsx';
+import TablaPremios from './TablaPremios.jsx';
+import imagenes from '../utils/imagenes.mjs';
+import { calcularMultiplicador, obtenerValor } from '../utils/combinaciones.mjs';
 
 export default function Tragaperras() {
   const [slots, setSlots] = useState([0, 0, 0, 0].map(() => crearSlotInicial()));
@@ -62,30 +62,50 @@ export default function Tragaperras() {
         });
 
         if (combinacionFinal.filter(Boolean).length === 4) {
-          // 🔢 Calcular el valor total de la tirada (suma de valores de las figuras)
-          const valorTirada = combinacionFinal.reduce((acum, nombre) => {
-  return acum + obtenerValor(nombre);
-}, 0);
-
-
-          const resultado = calcularMultiplicador(combinacionFinal);
-          const premio = valorTirada * resultado.multiplicador;
-
-          setSaldo(prev => prev + premio);
-          setMensaje(`${resultado.mensaje} | Ganancia: ${premio} (Valor: ${valorTirada} x ${resultado.multiplicador})`);
-
-          setHistorial(prev => [
-            {
-              combinacion: combinacionFinal,
-              valorTirada,
-              multiplicador: resultado.multiplicador,
-              premio,
-            },
-            ...prev.slice(0, 9),
-          ]);
+          evaluarCombinacion(combinacionFinal);
         }
       }, duracion);
     });
+  };
+
+  const evaluarCombinacion = (combinacion) => {
+    const resultado = calcularMultiplicador(combinacion);
+    const figurasGanadoras = resultado.figurasGanadoras || [];
+
+    const valorGanador = figurasGanadoras.reduce((acum, nombre) => {
+      return acum + obtenerValor(nombre);
+    }, 0);
+
+    const premio = valorGanador * resultado.multiplicador;
+
+    setSaldo(prev => prev + premio);
+    setMensaje(
+      `${resultado.mensaje} | Ganancia: ${premio} (Valor figuras ganadoras: ${valorGanador} x ${resultado.multiplicador})`
+    );
+
+    setHistorial(prev => [
+      {
+        combinacion,
+        valorTirada: valorGanador,
+        multiplicador: resultado.multiplicador,
+        premio,
+      },
+      ...prev.slice(0, 9),
+    ]);
+  };
+
+  const handleAvanzarSlot = (index) => {
+    if (apuesta <= 0 || apuesta > saldo || slots[index].girando) return;
+
+    setSaldo(prev => prev - apuesta);
+    const nuevoNombre = imagenes[Math.floor(Math.random() * imagenes.length)].nombre;
+
+    const nuevaCombinacion = slots.map((slot, i) =>
+      i === index ? { nombre: nuevoNombre, girando: false } : slot
+    );
+
+    setSlots(nuevaCombinacion);
+    evaluarCombinacion(nuevaCombinacion.map(s => s.nombre));
   };
 
   useEffect(() => {
@@ -96,7 +116,7 @@ export default function Tragaperras() {
 
   return (
     <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h1>🎰 Tragaperras React</h1>
+      <h1>🎰 Tragaperras Virtual</h1>
 
       <Apuesta apuesta={apuesta} setApuesta={setApuesta} saldo={saldo} disabled={false} />
 
@@ -107,7 +127,7 @@ export default function Tragaperras() {
             imagen={s.nombre}
             girando={s.girando}
             premio={mensaje}
-            onAvanzar={() => {}}
+            onAvanzar={() => handleAvanzarSlot(i)}
             index={i}
           />
         ))}
